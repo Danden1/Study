@@ -1,1 +1,1 @@
-선형대수학 공부
+Linear_Algebra study with python
