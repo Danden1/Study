@@ -74,7 +74,7 @@ ex) f(x0, x1) = x0^2 + x1^2
      
 배치용
 
-    def numerical_gradient(f,x):
+    def _numerical_gradient(f,x):
       if x.ndim == 1:
         return numerical_gradient_no_batch(f,x)
       else:
