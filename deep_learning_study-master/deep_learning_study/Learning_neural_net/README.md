@@ -33,8 +33,8 @@ delta 를 더하는 이유는 0이 입력되면 -inf가 됨.
       
       batch_size = y.shape[0]
       return -np.sum(np.log(y[np.arange(batch_size), t])) / batch_size 
-      
-배치는 훈련용데이터 중 일부를 무작위로 뽑아서 하는 것. 속도가 향상됨.
+      
+미니배치는 훈련용데이터 중 일부를 무작위로 뽑아서 하는 것. 속도가 향상됨.
 
 손실 함수 사용 하는 이유는 미분으로 매개변수의 값을 서서히 갱신하기 위해서
 
@@ -147,7 +147,7 @@ lr의 값이 너무 크거나 작으면 좋은 결과를 얻을 수 없음.
     def f(W):
       return net.loss(x,t)
     
-   dW = numerical_gradient(f,net.W)
+    dW = numerical_gradient(f,net.W)
    
-   print(dw)
+    print(dw)
    
