@@ -1,3 +1,7 @@
+import numpy as np
+from numerical_gradient import numerical_gradient
+from softmax import softmax
+from sigmoid import sigmoid
 class TwoLayerNet:
   def __init__(self, input_size, hidden_size, output_size, weight_init_std = 0.01):
     #가중치 초기화
@@ -26,7 +30,7 @@ class TwoLayerNet:
     accuracy = np.sum(y==t)/float(x.shape[0])
     return accuracy
     
-  def numerical_gradient(self, x, t,):
+  def numerical_gradient(self, x, t):
     loss_W = lamda W:self.loss(x,t)
     
     grads = {}
