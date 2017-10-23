@@ -1,3 +1,6 @@
+import numpy as np
+from TwoLayerNet import TwoLayerNet
+
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize = True, one_hot_label = True)
 #https://github.com/WegraLee/deep-learning-from-scratch/blob/master/dataset/mnist.py 참고 
 
