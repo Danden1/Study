@@ -83,6 +83,26 @@ ex) f(x0, x1) = x0^2 + x1^2
         for i , x in enumerate(x):
           grad[i] = numerical_gradient_no_batch(f,x)
         return grad
+        
+다차원 배열용
+
+    def numerical_gradient(f,x):
+      h = 1e-4
+      grad = np.zeros_like(x)
+      
+      it = np.nditer(x, falgs = ['multi_index'], op_flags = ['readwrite])
+      while not it.finished:
+        idx = it.multi_index
+        tmp_val = x[idx]
+        fxh1 = f(x)
+        
+        x[idx] = tmp_val -h
+        fxh2 = f(x)
+        grad[idx] = (fxh1-fxh2)/ (2*h)
+        
+        x[idx] = tmp_val
+        it.iternext()
+    reutrn grad
 
 ### 경사하강법
 
