@@ -150,4 +150,6 @@ lr의 값이 너무 크거나 작으면 좋은 결과를 얻을 수 없음.
     dW = numerical_gradient(f,net.W)
    
     print(dw)
-   
+   
+TwoLayerNet.py는 2층 신경망을 클래스로 구현한 것.
+train_neuralnet.py는 학습(손글씨).
