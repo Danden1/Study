@@ -10,7 +10,7 @@ batch_size = 100 #미니배치 크기
 learning_rate = 0.1 #학습률
 
 network = TwoLayerNet(input_size = 784, hidden_size = 50, output_size = 10)
-
+#손글씨 이미지가 28*28 사이즈라서 input_size = 784, hidden_size는 임의의 값임. output_size는 0~9.
 for i in range(iters_num):
   #미니배치
   batch_mask = np.random.choice(train_size, batch_size)#0~train_size -1의 수 중에 batch_size개수를 랜덤으로 뽑음.
