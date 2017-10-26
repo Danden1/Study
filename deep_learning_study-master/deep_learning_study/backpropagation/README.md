@@ -147,27 +147,27 @@ softmax->cross entropy error
      
      a1                  y1,t1
    
-   ---->                 ---->
+    ---->                 ---->
    
-   <----                 <----
+    <----                 <----
    
-   y1-t1                  
+    y1-t1                  
    
-   a2                    y2,t2                      L
+    a2                   y2,t2                      L
    
-   ---->      Softmax    ---->     Cross           ----->   
+    ---->      Softmax    ---->     Cross           ----->   
    
-   <----                 <----     Entropy error   <-----
+    <----                 <----     Entropy error   <-----
    
-   y2-t2                                            1
+    y2-t2                                            1
    
-   a3                   y3,t3
+    a3                   y3,t3
    
-   ---->                 ---->
+    ---->                 ---->
    
-   <----                 <----
+    <----                 <----
    
-   y3-t3
+    y3-t3
     
     
     
