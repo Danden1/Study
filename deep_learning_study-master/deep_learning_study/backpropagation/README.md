@@ -153,7 +153,7 @@ softmax->cross entropy error
    
    y1-t1                  
    
-   a2                   y2,t2                      L
+   a2                    y2,t2                      L
    
    ---->      Softmax    ---->     Cross           ----->   
    
