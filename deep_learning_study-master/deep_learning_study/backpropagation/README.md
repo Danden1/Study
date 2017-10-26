@@ -185,4 +185,4 @@ softmax->cross entropy error
 
 5층, 10층, .... 으로 구현하고 싶으면 단순히 계층을 추가하면 된다.
 
-오차역전파를 구현한 학습은 Learning_neural_net/train_neuralnet.py의 numerical.gradient를 gradient로 바꿔주면 된다.
+오차역전파를 구현한 학습은 Learning_neural_net/train_neuralnet.py의 numerical_gradient를 gradient로 바꿔주면 된다.
