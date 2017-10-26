@@ -132,3 +132,46 @@ y = exp(x), σy/σx = exp(x)
 
 
 ### Softmax-with-Loss 계층
+
+Affine -> RelU -> Affine->ReLU->.... ->Affine ->Softmax
+
+이런 식으로 계층이 구현된다.
+
+Softmax앞의 값을 점수라고 한다.
+
+Softmax-with-Loss함수는
+
+softmax->cross entropy error
+
+로 구성되어있다.
+     
+     a1                  y1,t1
+   ---->                 ---->
+   <----                 <----
+    y1-t1                  
+     a2                   y2,t2                      L
+   ---->      Softmax    ---->     Cross           ----->   
+   <----                 <----     Entropy error   <-----
+    y2-t2                                            1
+     a3                   y3,t3
+   ---->                 ---->
+   <----                 <----
+    y3-t3
+    
+    
+    
+    
+ 역전파의 결과로 (y1 - t1, y2 - t2, y3- t3)로 깔끔하게 출력되고 있다.
+ 
+ 출력과 정답레이블의 차분이다.
+ 
+ 이것은 일부러 이렇게 설계 된 것이다.
+ 
+ 
+ ### 오차역전파 구현
+
+소스파일을 보면 OrderDict은 순서가 있는 딕셔너리이다.
+
+5층, 10층, .... 으로 구현하고 싶으면 단순히 계층을 추가하면 된다.
+
+오차역전파를 구현한 학습은 Learning_neural_net/train_neuralnet.py의 numerical.gradient를 gradient로 바꿔주면 된다.
