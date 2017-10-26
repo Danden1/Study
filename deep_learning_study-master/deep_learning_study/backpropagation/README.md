@@ -146,17 +146,28 @@ softmax->cross entropy error
 로 구성되어있다.
      
      a1                  y1,t1
-   ---->                 ---->
+   
+   ---->                 ---->
+   
    <----                 <----
-    y1-t1                  
-     a2                   y2,t2                      L
+   
+   y1-t1                  
+   
+   a2                   y2,t2                      L
+   
    ---->      Softmax    ---->     Cross           ----->   
+   
    <----                 <----     Entropy error   <-----
-    y2-t2                                            1
-     a3                   y3,t3
+   
+   y2-t2                                            1
+   
+   a3                   y3,t3
+   
    ---->                 ---->
+   
    <----                 <----
-    y3-t3
+   
+   y3-t3
     
     
     
