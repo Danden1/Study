@@ -284,7 +284,9 @@ SEEK_SET : 파일 오프셋을 pos를 설정.  
    
     ret = lseek(fd, 0, SEEK_END);        // 파일 끝
 
-    int pos;     pos = lseek(fd,0,SEEK_CUR);      //현재 파일 오프셋
+    int pos;     
+    
+    pos = lseek(fd,0,SEEK_CUR);      //현재 파일 오프셋
 
 ### 파일 끝을 넘어서 탐색하기.
 
