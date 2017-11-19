@@ -14,8 +14,13 @@
 파일 오프셋은 음수 불가능.
 파일 중간에 데이털르 기록하면 전에 있던 데이터를 덮어씀.
 ## 파일 열기
-    #include <sys/types.h>    #include <sys/stat.h>    #include <fcntl.h> //flag
-    int open(const char *name, int flags);    int open(const char *name, int flags, mode_t mode);
+
+    #include <sys/types.h>    
+    #include <sys/stat.h>    
+    #include <fcntl.h> //flag
+    
+    int open(const char *name, int flags);    
+    int open(const char *name, int flags, mode_t mode);
 경로 이름이 name인 파일을 파일 디스크립터에 맵핑.
 성공시 fd를 반환
 오프셋은 0
@@ -23,8 +28,12 @@
 
 O_RDONLY, O_WRONLY, O_RDWR 중 하나는 포함 해야됨.
 ### creat
-    #include <sys/types.h>    #include <sys/stat.h>    #include <fcntl.h>
-    int creat (const char *name, mode_t mode);    //open(name, O_WRONLY || O_CRAT || O_TRUNC, mode);
+    #include <sys/types.h>    
+    #include <sys/stat.h>    
+    #include <fcntl.h>
+    
+    int creat (const char *name, mode_t mode);    
+    //open(name, O_WRONLY || O_CRAT || O_TRUNC, mode);
 
 ## read()로 읽기
     #include <unistd.h>        sszie_t read(int fd, void *buf, size_t len);
@@ -32,8 +41,10 @@ O_RDONLY, O_WRONLY, O_RDWR 중 하나는 포함 해야됨.
 실패시 -1 반환, errno을 설정함.
 errno은 errno.h에 있음
 오프셋은 읽은 바이트 크기 만큼 전진.
-    unsigned long word;    sszie_t nr;
-    nr = read(fd, &word, sizeof(unsiged long));    if (nr == -1)    //error
+    unsigned long word;    
+    sszie_t nr;
+    nr = read(fd, &word, sizeof(unsiged long));    
+    if (nr == -1)    //error
 2가지 문제 존재.
 1. len만큼 모든 데이터를 읽지 못할 가능성
 2. 점검 후 처리 과정이 없음.
@@ -48,8 +59,16 @@ errno은 errno.h에 있음
 
 ### 전체 바이트 읽기
         sszie_t ret;
-        while (len != 0 && (ret = read(fd, buf, len) != 0){                if (ret == -1){                if(errno == EINTR)           continue;             perror("read");         break;    }
-    len -= ret;        buf +=ret;       }
+        while (len != 0 && (ret = read(fd, buf, len) != 0){
+          if (ret == -1){
+            if(errno == EINTR)
+              continue;
+            perror("read");
+            break;
+            }
+        len -= ret;
+        buf +=ret;
+         }
 
 ### 논블록 읽기
 
@@ -67,8 +86,16 @@ EAGAIN을 점검해야됨. 데이터 부족 상황이 심각한 에러 발생으
 ### 부분 쓰기
 
     sszie_t ret, nr;
-        while (len != 0 && (ret = write(fd, buf, len) != 0){                if (ret == -1){                if(errno == EINTR)           continue;             perror("write");         break;    }
-    len -= ret;        buf +=ret;       }
+        while (len != 0 && (ret = write(fd, buf, len) != 0){
+          if (ret == -1){
+            if(errno == EINTR)
+              continue;
+            perror("write");
+            break;    
+            }
+        len -= ret;
+        buf +=ret;
+        }
 
 ### 덧붙이기 모드
 O_APPEND 옵션 이용하면 , 파일 끝에서부터 쓰기 연산 일어남.
@@ -89,15 +116,20 @@ write를 호출하면 리눅스 커널은 몇가지 점검 후, 단순이 데이
 ## 동기식 입출력
 ### fsync(), fdatasync()
 
-    #include <unistd.h>       int fsync(int fd);
+    #include <unistd.h>       
+    int fsync(int fd);
+    
+    
 
-        #include <unistd.h>        int fdatasync(int fd);
+    #include <unistd.h>        
+    int fdatasync(int fd);
 
 fsync()는 데이터를 디스크에 기록하는 작업과 inode의 파일 변경 시점을 갱신작업함.
 inode와 파일 데이터는 디스크 상에서 인접해있지 않기 때문에 탐색 연산에 시간이 소요되며 변경된 날짜와 같은 메타데이터는 나중에 파일에 접근할 때 꼭 필요하지는 않으므로 fdatasync()를 사용 하는 편이 성능상 이득.
 
 ### sync()
-    #include <unistd.h>        void sync(void);
+    #include <unistd.h>
+    void sync(void);
 
 최적화에는 부족. 활용 범위는 넓음.
 sync는 모든 버퍼 내용을 디스크에 동기화 함.
@@ -128,7 +160,7 @@ close() 시스템 콜을 이용해서 파일 맵핑을 끊어야 됨.
 파일 오프셋은 특정 값으로 지정 가능.
     #include <sys/types.h>
     #include <unistd.h>
-         off_t lseek(int fd, off_t len, int origin);
+    off_t lseek(int fd, off_t len, int origin);
 
 origin 인자는
 SEEK_CUR : 현재 오프셋에서 pos를 더한 값으로 설정.pos가 0 이면 현재 파일 오프셋 반환.
