@@ -24,6 +24,7 @@
 
 ## 파일 열기
 
+    
     #include <sys/types.h> 
     
     #include <sys/stat.h>    
@@ -33,7 +34,8 @@
     int open(const char *name, int flags);    
     
     int open(const char *name, int flags, mode_t mode);
-
+    
+    
 경로 이름이 name인 파일을 파일 디스크립터에 맵핑.
 
 성공시 fd를 반환
