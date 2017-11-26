@@ -476,6 +476,7 @@ select()의 몇가지 결점을 보완 해주지만, 습관이나 이식성의 �
 
     #include <poll.h>
     
+    
     int poll (struct pollfd *fds, nfds_t nfds, int timeout); // 두번 째는 개수
     
     struct pollfd{
