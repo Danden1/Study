@@ -393,13 +393,13 @@ SEEK_SET : 파일 오프셋을 pos를 설정.  
     int select(int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
     
     
-    FD_CLR(int fd, fd_set *set);
+    FD_CLR(int fd, fd_set *set);  // fd remove
     
-    FD_ISSET(int fd, fd_set *set);
+    FD_ISSET(int fd, fd_set *set);// search
     
-    FD_SET(int fd, fd_set *set);
+    FD_SET(int fd, fd_set *set);  // fd add
     
-    FD_ZERO(fd_set *set);
+    FD_ZERO(fd_set *set); // all fd remove
 
 
 n은 파일 디스크립터 집합에서 가장 큰 파일 디스크립터숫자 + 1
