@@ -296,7 +296,7 @@ SEEK_SET : 파일 오프셋을 pos를 설정.  
 파일 오프셋을 파일 끝을 넘길 수도 있음.
 
     int ret;
-    
+        
     ret = lssek(fd, (off_t) 1688, SEEK_END);
     
 
@@ -338,12 +338,12 @@ SEEK_SET : 파일 오프셋을 pos를 설정.  
 ## 파일 잘라내기
 
     #include <unistd.h>
-
+    
     #include <sys/types.h>
-
+    
     
     int ftruncate(int fd, off_t len);
-
+    
     int truncate(const char *path, off_t len);
 
 파일을 len 크기만큼 잘라냄.
@@ -375,9 +375,9 @@ SEEK_SET : 파일 오프셋을 pos를 설정.  
 
 
     1. 다중 입출력 : 파일 디스크립터중 하나가 입출력이 가능 할때 알려줌.
-
+    
     2. 준비 됫는지? 준비된 파일 디슼느립터가 없다면 준비될 때까지 잠듬.
-
+    
     3. 깨어나기.
     
     4. 블록하지 않고 모든 파일디스크립터가 입출력을 준비하도록 관리.
@@ -388,11 +388,11 @@ SEEK_SET : 파일 오프셋을 pos를 설정.  
 ### select()
 
     #include <sys/select.h>
-
-
+    
+    
     int select(int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
-
-
+    
+    
     FD_CLR(int fd, fd_set *set);
     
     FD_ISSET(int fd, fd_set *set);
@@ -406,13 +406,13 @@ n은 파일 디스크립터 집합에서 가장 큰 파일 디스크립터숫자
 
 
     #include <sys/time.h>
-
+    
     struct timeval{
     
         long tv_sec; //초
         
         long tv_usec; //마이크로 초
-
+    
     }
 
 
@@ -445,10 +445,10 @@ timeout을 제외한 나머지 인자를 NULL로 넘겨, 다양한 시스템에�
     #define _XOPEN_SOURCE 600
     
     #include <sys/select.h>
-
+    
     
     int pselect(int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timespec *timeout);
-
+    
     FD_CLR(int fd, fd_set *set);
     
     FD_ISSET(int fd, fd_set *set);
@@ -459,7 +459,7 @@ timeout을 제외한 나머지 인자를 NULL로 넘겨, 다양한 시스템에�
 
 
     #include <sys/time.h>
-
+    
     struct timespec{
     
         long tv_sec; //초
@@ -479,7 +479,7 @@ select()의 몇가지 결점을 보완 해주지만, 습관이나 이식성의 �
     int poll (struct pollfd *fds, nfds_t nfds, int timeout); // 두번 째는 개수
     
     struct pollfd{
-
+    
         int fd;
       
         short events;   // 감시할 이벤트
@@ -487,7 +487,7 @@ select()의 몇가지 결점을 보완 해주지만, 습관이나 이식성의 �
         short revents;  // 발생한 이벤트
      
      
-     }
+    }
 
     
     
