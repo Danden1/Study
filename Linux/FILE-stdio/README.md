@@ -121,9 +121,16 @@ EOF나 개행문자를 만나면 읽기를 중단함.
 
 
 fgetc()로 fgets()대체 가능.
-(예제 파일 ex_1.c)
 
-
+    char *s;
+    int c;
+    
+    s =str;
+    
+    while(--n > 0 && (c = fgetc (stream)) != EOF) //n-1 바이트만큼 읽음.
+        *s++ = c;
+    *s = '\0';
+    
 
 ### 바이너리 데이터 읽기
 
