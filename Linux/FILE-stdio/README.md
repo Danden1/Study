@@ -272,3 +272,91 @@ fflush는 사용자 버퍼에 있는 데이터를 커널 버퍼로 쓰기만 함
 write()를 사용하는 효과와 동일.
 
 데이터가 매체에 바로 기록되려면 fflush호출 후, 바로 fsyn() 호출 해야함.
+
+
+## 에러와 EOF
+
+    #include <stdio.h>
+    
+    int ferror(FILE *stream);
+
+에러 지시자가 설정되어 있을 경웅에는 0이 아닌 값 반환, 그렇지 않은 경우에는 0 반환
+
+    #include <stdio.h>
+    
+    int feof(FILE *stream);
+
+eof 지시자가 설정 되어 있는 경우에는 0이 아닌 값 반환, 그렇지 않은 경우에는 0 반환
+
+    #include <stdio.h>
+    
+    void clearerr(FILE *stream);
+
+
+에러지시자와 eof를 초기화함.
+
+반환값이 없고, 항상 성공함.
+
+## 파일 디스크립터 얻어오기
+
+    #include <stdio.h>
+    
+    int fileno(FLE *stream);
+
+
+성공시 stream과 관련된 파일 디스크립터 반환, 실패시 -1
+
+스트림이 유효하지 않은 경우에만 실패.
+
+파일 디스크립터와 스트림 기반의 표준 입출력 연산을 섞어서 쓰면 안 좋음.
+
+## 스레드 세이프
+
+스레드는 개별 프로세스 내에 존재하는 여러개의 실행 단위.
+
+멀티코어 시스템에서는 둘 이상의 스레드가 같은 프로세스에서 동시에 실황 될 수 도 있음.
+
+스레드에서 데이터에 접근할 때 동기화에 대한 주의를 기울이지 않거나 스레드 로컬로 만들지 않으면 스레드가 공유 데이터를 덮을 수 잇음.
+
+이러한 것을 막기 위해 락 메커니즘 제공
+
+두 스레드가 서로 동시에 쓰기 요청을 하더라도, 락 메커니즘으로 인해 하나가 먼저 완료되고 난 다음에 다른 요청이 실행됨.
+
+### 수동으로 파일 락 걸기
+    
+    #include <stdio.h>
+    
+    void flockfile(FILE *stream);
+
+
+stream의 락이 헤제될 때까지 기다린 후에 락 카운터를 올리고 락을 얻은 다음, 스레드가 stream을 소유하도록 만든 후에 반환.
+    
+    #include <stdio.h>
+    
+    void funlockfile(FILE *stream);
+
+락 카운터를 하나 제거.
+
+락 카운터가 0이 되면 현재 스레드는 stream의 소유권을 포기해서 다른 스레드가 락을 얻을 수 있도록 함.
+
+    #include <stdio.h>
+    
+    int ftrylockfile (FILE *stream);
+
+락이 걸려 있다면, 아무것도 하지 않고 즉시 0이 아닌 값 반환. 
+
+락이 안 걸려 있다면, 락을 걸고 락 카운터를 하나 올린다음 그 stream을 소유하도록 만들고 0을 반환.
+
+ex) 
+
+    flockfile(stream);
+
+    fputs("ssss\n", stream);
+    
+    fputs("ssss\n", stream);
+    
+    fputs("ssss\n", stream);
+    
+    funlockfile(stream);
+
+
