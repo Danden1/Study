@@ -1,4 +1,4 @@
-#벡터
+# 벡터
 
 
 '운반하다'라는 뜻의 라틴어에서 유래됨.
@@ -163,5 +163,48 @@ av+bv 형태의 표현식은 u와 v의 블록 결합이라고 함.
 
 예제파일 vec_ex.py참조 
 
+
+
+## GF(2) 상의 벡터
+
+1101 + 0111 = 1010
+
+ex)
+
+10벡터 k를 랜덤 선택 p는 평문. c는 암호문
+
+c = p+k(벡터의 덧셈)
+
+p = c-k
+
+c에다 k를 더하면 암호문 해동이 가능. => 뺄셈은 덧셈이랑 동일함.
+
+이를 이용하면 p,k를 다른 서버에다 저장하면, 하나의 서버만 공격해서는 비밀번호를 알 수 없음.
+
+## 도트곱
+
+D- 벡터를 u,v라 하면,
+
+u'v = u1v1 + u2v2... +unvn
+
+연산의 결과는 스칼라임
+
+def list_dot(u,v) :return sum([v[i]+u[i] for i in range(len(u))])
+
+### 선형 방정식
+
+def 선형방정식(일차 방정식)은 a'x = b의 형태를 가지는 식
+
+a= 벡터, b는 스칼라, x는 벡터 변수
+
+ex)센서 노드의 에너지 사용률
+
+D = {rade, sensor, momory, cpu}
+
+rate = Vec (D, {memory : 0.06w, radio : 0.1w, sensor : 0.004w, cpu : 0.0025w}
+
+duration = Vec(D, {momory : 1.0, radui : 0.25, sensor : 0.5, cpu : 1.05})
+
+센서 노드에 의해 소모된 총 에너지는 duraton'rate = 0.0845j
 
 
