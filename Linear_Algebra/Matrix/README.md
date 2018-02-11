@@ -84,11 +84,22 @@ Def : 엔트리 (d,d)는 1, 다른 엔트리는 전부 0인 행렬
 
 
 
-Mat(({'a','b','c'},{'a','b','c'}), {('a','a') : 1, ('b','b') : 1, ('c','c'):1})
+    Mat(({'a','b','c'},{'a','b','c'}), {('a','a') : 1, ('b','b') : 1, ('c','c'):1})
 
-def identity(D) : return Mat((D,D), {(d,d) : 1 for d in D})
+    def identity(D) :
+    
+        return Mat((D,D), {(d,d) : 1 for d in D})
 
 ### 행렬 표현의 변환
+
+    def mat2rowdict(A):
+        
+        return {r:Vec(A.D[1],{r:A[r,c] for r in A.D[0]}) for c in A.D[0]}
+        
+    
+    def mat2coldict(A):
+    
+        return {c:Vec(A.D[0], {r:a[r,c] for r in A.D[0]}) for c in A.D[1]}
 
 
 
