@@ -70,7 +70,7 @@ double double_val;
 
 }
 
-ine4all n;
+one4all n;
 
 n.int_val = 10;
 
