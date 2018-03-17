@@ -95,3 +95,144 @@ ar2 +r //r번째 행 지시하는 포인터
 그리고 const를 사용하지 않았음. ar2는 포인터를 지시하는 포인터
 
 기본형을 지시한 포인터에 대해서만 const사용가능
+
+## 재귀 호출
+
+
+'인공 지능'과 같은 특변할 프로그래밍에서 중요
+
+### 단일 호출
+
+호출의 연쇄를 끝내기 위해 if문 사용
+
+ex)
+
+void recurs(argu){
+
+statement1
+
+if(test)
+
+return recurs(arg)
+
+statement2
+
+}
+
+
+
+각각의 함수 호출은 statement1만 수행하고 satement2부분은 수행을 유보함
+
+마지막 함수 호출에서 ssatement2가 실행되고, 거슬러 올라감
+
+
+
+### 다중 재귀 호출
+
+하나의 작업을 서로 비슷한 두개의 작은 작업으로 반복적으로 분할해가면서 처리해야 하는 상황에서 유리
+
+ex) 눈금자, 중간지점을 찾아 표시, 왼,오른쪽 구역으로 중간 지역 표시
+
+=>이런 재귀적인 접근을 분할 정복이라고함
+
+## 함수를 지시하는 포인터
+
+함수도 주소가 있음.
+
+함수의 주소는 그 함수에 해당하는 기계어 코드가 저장되어 있는 메모리 블록의 시작주소
+
+
+
+### 함수 포인터 기초
+
+-함수 주소 얻기
+
+괄호를 빼고 함수이름만 사용하면 됨
+
+pro(think); 
+
+tho(think());
+
+pro()함수는 내부에서 think() 함수를 불러냄.
+
+tho()함수는 think() 함수가 먼저 실행되고,
+
+리턴 값이 tho()함수에 전달됨.
+
+double pam(int); //함수 원형
+
+double (*pf)(int); //포인터
+
+//(*pf)괄호 필요
+
+pf = pam; //pf는 pam()함수 지시
+
+double y = (*pf)(5); //pf(5)도 가능
+
+### 함수 포인터의 변형
+
+const double *f1(const double ar[], int n);
+
+const double *f2(const double [], int );
+
+const double *f3(const double *, int);
+
+//위의 세 함수는 동일
+
+const double (*p1)(const double ar[], int n); // 포인터 함수
+
+const double (*p1)(const double ar[], int n) = f1; //도 가능
+
+auto p2 = f2 // c++11자동 형 변환
+
+
+
+const double *(*pa[3])(const double *, int) = {f1,f2,f3};
+
+3을 넣어야 된느 이유 : pa는 3가지 원소를 가지는 배열
+
+*pa[3]은 세 개의 포인터를 가지는 배열
+
+여기에 auto는 사용 불가능
+
+자동 형 변환은 단일값 초기화 할때 사용
+
+=> 리스트 초기화는 불가
+
+그러나 
+
+auto pb = pa;
+
+는 가능
+
+배열의 이름은 배열의 첫 번재 주소이기 때문
+
+-> pa,pb는 함수를 가리키는 포인터
+
+배열 전체를 가리키게 하느 방법은
+
+auto pc = &pa;
+
+const double *(*(*pa)[3]) (const double *, int) = &pa;
+
+(*pa)[3] 은 3개의 원소를 가지는 포인터
+
+pd는 포인터, 세개의 원소를 가지는 배열을 가리킴
+
+pd가 배열을 가리키는 포인터, *(pd)[i]는 배열의 원소
+
+함수를 호출하기 위해서는 함수를 가리켜야함.
+
+(*(*pd)[i]) (av,3)을 이용해야함.
+
+**&pa == *pa == pa[0]
+
+&pa +1 은 배열 뒤로 12바이트 다음 주소
+
+### typedef 로 단순화
+
+typedef const double *(*p_fun)(const double*, int);
+
+p_funn p1 =f1;
+
+
