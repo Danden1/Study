@@ -40,8 +40,8 @@ void Set(CandyBar & MyBar, char * bname, double wt, int cal)
 
 void Show(const CandyBar & MyBar)
 {
-	cout << "상표명 : " << MyBar.name << endl;
-	cout << "중  량 : " << MyBar.weight << endl;
-	cout << "칼로리 : " << MyBar.calory << endl;
+	cout << MyBar.name << endl;
+	cout <<  MyBar.weight << endl;
+	cout << MyBar.calory << endl;
 	cout << endl;
 }
