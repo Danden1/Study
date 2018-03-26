@@ -447,3 +447,80 @@ swap <double> (m,x)는 작동하지 않음.
 
 3. 가장 적절한 함수가 있는지 판단.
 
+
+### 사용자 선택
+
+ex)
+
+template <class T>
+
+T plus(T a, T b){return a+b;}//1
+
+int plus(int a, int b){ return a+b;}//2
+
+plus(3,4); //2
+
+plus(3.0, 4.0); //1
+
+plus<> (3,4); // 1
+
+plus<int> (3,4); //1
+
+### decltype(c++11)
+
+int x;
+
+decltype(x) y; // x와 동일한 타입의 y 생성
+
+decltype(x+y) s = x+y; //x+y와 동일한 타입
+
+
+
+decltype(expression) var;
+
+1. expression 이 괄호가 없는 식별자 인 경우, var는 식별자와 동일한 타입, const를 포함하게 됨
+
+2. 함수 호출일 경우, var는 함수 리턴형
+
+3. lvalue 일 경우, var는 expression 타입참조. 괄호를 추가 해줘야됨.
+
+ex)
+
+int x = 3;
+
+decltype ((x)) r = x; //r은 int& 형
+
+4. 어떠한 특별한 경우로 적용된 적이 없을 시, expression 과 동일한 타입
+
+int j =3;
+
+int &n = j;
+
+int &k = j;
+
+decltype(n+k) i // int 타입
+
+
+
+typedef decltype (x) xtype;
+
+xtype y;
+
+xtype ui[10];
+
+이렇게도 사용 가능
+
+
+
+### trailng return type(c++11)
+
+template <class T1, class T2>
+
+?? gt(T1 x, T2 y){...return x+y;} 
+
+리턴 타입을 위해  decltype(x+y) 사용 불가
+
+auto gt*int x, foat y) -> double 형
+
+auto 이용
+
