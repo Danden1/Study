@@ -538,3 +538,5 @@ template <class C,class D> friend void show2(C&, D&);
 
 
 모든 특수화들에 대해 프렌드
+
+//소드 코드 답지 참조
