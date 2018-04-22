@@ -2,7 +2,7 @@
 #define _AS_
 
 struct Stack{
-  int StackArr[100];
+  int stackArr[100];
   int topIndex;
 };
 
