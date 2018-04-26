@@ -126,3 +126,81 @@ vector의 반복자는 랜덤 액세스 반복자.
 push_back()함수 있으므로, 새 원소 뒤에 추가할 때,
 
 back_insert_iterator사용가능
+
+copy() 처음 두 인수는 입력 스트림 반복자.
+
+두 번째 인자는 스트림 반복자의 끝 지정.
+
+
+
+### 새 원소 추가
+
+컨테이너에 원소 추가하는 방법은 멤버 함수 호출이 유일
+
+
+push_back()함수로 순차열 끝에 원소 추가.
+
+std::vector<int> v;
+v.push_back(3);
+
+원소 추가에 이동 연산함. 우측 값 참조 매개변수 사용
+
+
+
+empalce_back()은 더 효율적
+
+
+std::vector<std::string> words;
+
+wrods.emplace("HI");
+
+인수는 컨테이너에 추가될 객체의 생성자에 넘길 인수.
+
+-> 컨테이너 내부에서 객체 생성함.
+
+push_back() 실행했을 때 발생하는 객체의 이동 연산 제거 가능.
+
+
+
+std::string str{"alleged"};
+
+words.emplace_back(str,2,3); //"leg"
+
+idx 2에서 3문자
+
+
+
+emplace()멤버 함수로 vector 내부에 새 원소 추가 가능.
+
+1번재 인수는 개체가 생성될 위치 반복자.
+
+반복자로 지정한 원소 앞에 객체 삽입됨.
+
+2번째 이후는 삽입될 원소의 생성자에 전달.
+
+
+
+insert()는 하나 이상 원소 추가 가능.
+
+words.insert(++std::begin(words), "two");
+
+std::string more[]{"five", "six"};
+
+words.insert(--std::end(words), std::begin(more), std::end(more));
+
+words.inset(std::cend(words)-1,2,"seven"); //seven 두 번
+
+
+vector 끝 아닌 위치에 삽입하는 모든 작업은 부하 있음
+
+
+### 원소 삭제
+
+clear() 멤버함수로 모두 제거 가능.
+
+pop.back()함수로 vector 마지막 원소 삭제 가능.
+
+용량은 유지됨.
+
+shrink_to_fit()으로 원소에 필요한 크기로 용량 줄임.
+
