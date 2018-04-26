@@ -204,3 +204,261 @@ pop.back()함수로 vector 마지막 원소 삭제 가능.
 
 shrink_to_fit()으로 원소에 필요한 크기로 용량 줄임.
 
+erase()로 하나 이상 제거 가능
+
+data.erase(std::begin(data)+1);
+
+//2번 째 제거
+
+data.erase(std::begin(data) +1, std::begin(data)+3);
+
+//2,3 삭제
+
+erase()가 반환하는 반복자는 삭제된 원소의 다음 원소 가리킴.
+
+
+
+algorithm에 있는 remove()는 범위에서 지정한 값과 일치하는 원소 제거
+
+auto iter = std::remove(std::begin(words), std::end(words), "nine");
+
+
+
+remove는 전역함수, 컨테이너 원소 제거 불가.
+
+세 번째 인수와 일치하는 원소들을 벡터 컨테이너 앞으로 덮어쓰면서 복제
+
+만약 처음 size()가 7, 삭제해도 size는 여전히 7
+
+잉여 원소 제거하려면, erase()호출.
+
+remove() 반환한 반복자 활용
+
+words.erase(iter, std::end(words));
+
+iter는 삭제 후 ,마지막 원소 +1 가리킴.
+
+
+
+## deque<T>
+
+deque헤더 파일 필요.
+
+시작이나 끝에 객체 효율적으로 추가, 삭제 가능
+
+
+
+### 생성
+
+std::deque<int> data; //원소 없음
+
+std::deque<int> data(10);  //10개 원소, 0으로 초기화
+
+
+
+컨테이너의 복제본 생성하는 복제 생성자 존재.
+
+std::deque<int> c_d{data};
+
+std::deque<int> c_d{std::begin(data), std::end(data)};
+
+//범위 지정 가능
+
+
+
+### 접근
+
+크기와 용량 항상 같음
+
+### 원소 추가, 삭제
+
+push_back(), pop_back()지원
+
+동작 방식 같음
+
+push_front(), pop_front()도 정의 되 있음.
+
+emplace_back(), empalce_front(), emplace(), insert()있음.
+
+erase(), clear()도 잇음.
+
+
+
+### 내용 대체
+
+assign()함수 멤버는 기존 원소들을 모두 대체, 3가지 버전 존재.
+
+
+
+std::deque<std::string> words {"one", "two", "three"};
+
+words.assign({"seven", "eigth", "nine"});
+
+words에 있는 원소들을 대체함.
+
+
+
+std::vector<std::string> wset{"this", "that"};
+
+words.assign(std::begin(wset), std::end(wset));
+
+범위로 채움
+
+wrods.assign(8, "eight"); //8개
+
+vector에서도 assign 사용 가능.
+
+
+
+## list<T>
+
+list헤더 파일 필요
+
+순차열의 어느 위치라도 상수시간에 원소 삽입 삭제 가능
+
+단 특정 위치에 있는 원소에 바로 접근 불가.
+
+### 생성
+
+다른 컨테이너의 복제본 생성 가능.
+
+시작 반복자, 끝 반복자로 다른 순차열의 원소들로 초기화 가능.
+
+list는 양방향 반복자, 정숫값 더하거나 빼기 불가.
+
+++,-- 이용
+
+
+### 원소 추가
+
+push_front(), push_back(), emplace, emplace_front,emplace_back사용 가능
+
+### 원소 제거
+
+clear(), erase()사용
+
+remove()는 인수와 일치하는 원소 제거
+
+remove_if()는 인수로 단항 조건자 사용
+
+단항 조건자는 원소타입이나, const참조 인수로 받고, bool반환. true반환하는 원소 모두 제거
+
+data.remove_if([] (int n){return n%2==0;});//짝수 제거
+
+함수 객체도 이용 가능
+
+unique()함수는 둘 이상 중복되는 원소중 첫 번째만 남김(인접 중복 원소 제거)
+
+보통 인수 없이 사용
+
+인수로 이항 조건자 가능
+
+true 반환 -> 같은 것으로 간주
+
+
+
+### 원소 정렬, 병합
+
+algorithm sort()함수 템플릿은 랜덤 액세스 반복자 필요.
+
+리스트는 양방향이라서 사용 불가
+
+
+
+list 템플릿에 sort()함수 멤버 별도로 정의되 있음.
+
+인수 없는 sort()는 오름차순으로 정렬
+
+두 원소 비교하는 조건자를 정의한 람다 표현식이나 함수 객체를 인수로 받음.
+
+
+
+name_sort(std::greater<std::string>());
+
+//functional에 있는 greater<>이용. 내림 차순
+
+
+
+리스트의 merge()함수는 다른 리스트 컨테이너를 인수로 받음.
+
+두 컨테이너의 원소들은 오름차순 여야 함.
+
+인수 리스트의 원소들은 병합됨.
+
+복제가 아닌 이동
+
+두 번재 매개변수에 비교함수 지정 가능.
+
+
+
+리스트 컨테이너의 splice()는 여러가지 오버로드 존재.
+
+
+원자로 받은 리스트의 원소들을 현재 컨테이너의 특정 위치 앞으로 전송
+
+std::list<std::string> my_w{"three", "six", "eight"};
+
+std::list<std::string> your_w{"seven", "four", "nine"};
+
+my_w.splice(++std::begin(my_w), your_w, ++std::begin(your_w));
+
+첫번 째 인수는 대상 컨테이너의 위치 가리키는 반복자.
+
+2는 잘라붙일 원소들의 원본
+
+3은 원본리스트의 원소 가리키는 포인터
+
+your_w : "seven", "nine"
+
+my_w: "three", "four", "six", "eight"
+
+
+
+원본 리스트에서 범위로 잘라 붙이고 싶으면, 3,4번째 인수로 범위 지정하면 됨
+
+모든 원소 잘라붙이고 싶으면,
+
+my_w.splice(std:;begin(my_w), your_w);
+
+## forward_list<T>
+
+forward_list헤더 필요
+
+원소들을 역방향으로 순회 불가.
+
+역방향 반복자 이용 불가.
+
+순방향 반복자로 감소 불가. 증가만 가능.
+
+마지막 원소에 대한 참조 반환하는 back()멤버 없음.
+
+size()멤버 없음.
+
+iterator헤더에 정의된 distance()로 원소 개수 구할 수 있음.
+
+
+
+순방향 반복자 둘 이상 증가시킬 경우, iterator 헤더에 정의된 advance()함수가 유용
+
+std::forward_list<int> data{1,2,3,4,5,6,};
+
+auto iter = std::begin(data);
+
+size_t n {3};
+
+std::advance(iter, n); //4
+
+advnace()는 void형, 반복자를 증가시킴.
+
+forward_list 컨테이너 링크는 전부 순방향.
+
+-> 원소 삽입, 잘라붙이기가 원소 뒤에서 일어남.
+
+insert(), splice()대신,
+
+inset_after(), splice_after() 제공
+
+지정 위치 뒤에 원소 삽입하거나 잘라 붙임.
+
+시작 위치에 하고 싶은 경우, 첫번 째 원소 하나 더 앞 가리키는 cbefore_begin(), before_begin()이용
+
