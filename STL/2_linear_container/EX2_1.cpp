@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm> //swap, copy
-#inlcude <vector>
+#include <vector>
 #include <iterator>
 using namespace std;
 
