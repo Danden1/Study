@@ -10,7 +10,7 @@ int main(){
   words.reserve(10);
   
   cout << "단어 공백으로 구분해서 입력, 종료는 컨트롤 z" << endl;
-  copy(istream::iterator<string> {cin}, istream_iterator<string> {}, back_inserter(words));
+  copy(istream_iterator<string> {cin}, istream_iterator<string> {}, back_inserter(words));
   
   cout<< "정렬시작" <<endl;
   
@@ -18,7 +18,7 @@ int main(){
   
   auto last = end(words);
   
-  whiel(1){
+  while(1){
     for(auto first = begin(words)+1; first!=last; ++first){
       if(*(first-1) > *first){
         swap(*first, *(first-1));
@@ -39,7 +39,7 @@ int main(){
   
   cout << "\nw_copy\n";
   
-  copy(begin(w_copy), end(w_copy), ostream_iterator{cout, " "});
+  copy(begin(w_copy), end(w_copy), ostream_iterator<string> {cout, " "});
   
   cout << endl;
   
