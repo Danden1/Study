@@ -81,3 +81,72 @@ std::stack<int,std::list<int>> st(v);
 stack처럼 반복자 없음.
 
 원소에 접근하는 유일한 방법은 첫 원소 하나씩 제거한느 것 뿐.
+
+
+## priority_queue<T>
+  
+
+원소 들을 정렬된 순서로 담아놓는 큐.
+
+순위가 가장 높은 원소가 큐의 앞에 옴.
+
+큐래서 1원소에만 접근 가능.
+
+우선순위는 자기가 결정
+
+
+
+세 가지 매개변수 존재. 두 가지는 기본인수
+
+1. 저장할 객체 타입. 2. 원소 저장에 사용할 기반 컨테이너(vector가 기본) 3. 원소의 순서를 결정하는 조건자(함수타입, 기본 less<T>)
+  
+### 생성
+
+std::priority_queue<int> n;
+
+std::int ar[]{1,2,3,4};
+
+std::priority_queue<int> n {std::begin(ar), std::end(ar)};
+  
+
+
+front(), push_back(), pop_back(), size(), empty()지원하면 컨테이너 사용 가능
+
+
+
+std::vector<int> v{1,2,3,4,5};
+  
+std::priority_queue<int> n {std::less<int>(), v}; //5 4 3 2 1
+
+### 연산
+
+- emplace(), push() : 원소를 적절한 위치에 넣음.
+
+- top() : 첫 번째  객체에 대한 참조
+
+- pop() : 첫 원소 제거
+
+- size(), empty(), swap(priority_queue<T> &other)
+
+
+
+## 힙
+
+힙은 컨테이너가 아닌 데이터 구성 방식
+
+
+### 생성
+
+힙다루는 함수는 algorithm 해더에 템플릿으로 정의되 있음.
+
+max_heap()은 랜덤액세스 반복자로 정의한 원소들을 재배치 해서 힙을 만듬.
+
+std::vector<int> num{2,10,3,6,8,12,1};
+  
+std::make_heap(std::begin(num), std::end(num)); //12 10 3 6 8 2 1
+
+   12
+   
+  10  3
+
+6  8 2   1
