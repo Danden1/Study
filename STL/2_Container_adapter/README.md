@@ -150,3 +150,112 @@ std::make_heap(std::begin(num), std::end(num)); //12 10 3 6 8 2 1
   10  3
 
 6  8 2   1
+
+priority_queue의 인스턴스는 내부에서 힙 생성.
+
+
+priority_queue의 장점은, 
+
+- 원소 순서가 자동으로 정렬 됨.
+
+- 첫 원소에만 접근간으 해서, 정렬된 상태 유지.
+
+
+
+힙도 장점 있음.
+
+- 어떤 원소에도 접근 가능. 순서 망가뜨릴 수 있지만, make_heap()으로 복구 가능.
+
+- 랜덤 액세스 밴복자를 지원하는 컨테이너로 힙 생성 가능.
+
+- 힙 순서 유지하는 힙 함수는 사용 시, 힙을 우선순위 큐로 쓸 수 있음.
+
+
+### 연산
+
+힙 생성 후, 원소 추가하고 싶으면,
+
+algorithm의 push_heap() 함수가 원소 추가 함.
+
+
+
+힙에 원소 추가하려면, 순차열에서 동작하는 메서드를 이용해, 원소를 순차열의 뒤에 추가해야 함
+
+
+
+std::vector <int> num{~~};
+
+std::make_heap(std::begin(num), std::end(num));
+
+num.push_back(11);
+
+std::push_heap(std::begin(num), std::end(num));
+
+
+
+힙 생성 시 비교 함수 지정 했다면, push_heap()의 3번재 인자로 같은 함수 줘야 됨.
+
+
+가장 큰 원소 제거 과정은
+
+먼저 pop_heap()호출, 그다음 가장 큰 원소 제거.
+
+std::pop(std::begin(num), std::end(num));
+
+num.pop_back();
+
+
+
+is_heap()으로 범위가 힙인지 알 수 있음. 기본함수는 less<>
+
+is_heap_until()은 힙이 아닌 원소의 첫 위치 반환.
+
+
+
+## 컨테이너에 포인터 저장.
+
+보통 객체보다 포인터 저장한느 것이 더 좋음.
+
+그리고 스마트 포인터가 대부분 더 좋음.
+
+
+
+- 컨테이너에 포인터 저장하는 것은, 포인터가 가리키는 개체가 아니라 포인터가 복제 된다는 것. 빠름.
+
+- 다형성 얻을  수있음. 기반 타입의 원소 가리키는 포인터 저장 가능 하게 컨테이너 정의하면, 파생 타입 객체의 포인터로 저장 가능.
+
+- 정렬 빨라짐.
+
+
+
+    std::vector<std::unique_ptr<std::string>> words;
+    
+    words.push_back(std::make_unique<std::string> ("one"));
+    
+make_unique<T>()은 객체와 스마트 포인터 한 번에 만듬.
+  
+unnique_ptr이라서 복제는 안됨.
+
+shared_ptr로 해결 가능.
+
+
+
+### 순차열 컨테이너에 퐁니터 저장.
+
+
+
+    std::vector<std::shared_ptr<std::string>> words;
+    
+    std::string word;
+    
+    while(true){
+    
+      if((std::cin >> word).eof()){
+        std::cin.clear(); //eof초기화
+        
+        break;
+        
+      }
+      
+      words.push_back(std::make_shared<string> (word));
+    }
