@@ -13,7 +13,7 @@ void InserSort(int arr[], int n){
 				break;
 		}
 		
-		arr[j+1] = insinsData;
+		arr[j+1] = insData;
 	}
 }
 
@@ -21,7 +21,7 @@ int main(void){
 	int arr[5] = {5,3,2,4,1}
 	int i;
 	
-	InserSortSort(arr, sizeof(arr)/sizeof(int));
+	InserSort(arr, sizeof(arr)/sizeof(int));
 	
 	for(i=0; i< 5; i++)
 		printf("%d ", arr[i]);
