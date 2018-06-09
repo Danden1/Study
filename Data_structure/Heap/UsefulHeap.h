@@ -1,75 +1,24 @@
-#include "UsefulHeap.h"
+#ifndef __USEFUL_HEAP_H
+#define __USEFUL_HEAP_H
 
-void HeapInit(Heap *ph, PriorityComp pc){
-	ph->numOfData = 0;
-	ph->comp = pc;
-}
+#define TRUE 1
+#define FALSE 0
 
-int HIsempty(Heap *ph){
-	if(ph->numOfData == 0)
-		return TRUE;
-	else
-		return FALSE;
-}
+#define HEAP_LEN 100
 
-int GetParentIDX(int idx){
-	return idx/2;
-}
+typedef char HData;
+typedef int PriorityComp(HData d1, HData d2);
 
-int GetLChildIDX(int idx){
-	return idx*2;
-}
+typedef strcut _heap{
+	PriorityComp* comp;
+	int numOfData;
+	HData heapArr[HEAP_LEN];
+} Heap;
 
-int GetRChildIDX(int idx){
-	return idx*2+1;
-}
+void HeapInit(Heap *ph, PriorityComp pc);
+int HIsEmpty(Heap *ph);
 
-int GetHiPriChildIDX(Heap *ph, int idx){
-	if(GetLChildIDX(idx) > ph->numOfData)
-		return 0;
-	else if(GetLChildIDX(idx) == ph->numOfData)
-		return GetLChildIDX(idx);
-	else{
-		if(ph->comp(ph->heapArr[GetLChildIDX(idx)], ph->heapArr[GetRChildIDX(idx)]) < 0)
-			return GetRChildIDX(idx);
-		else
-			return GetRChildIDX(idx);
-	}
-	
-	
-}
+void HInsert(Heap *ph, HData data);
+HData HDelete(Heap *ph);
 
-void HInsert(Heap *ph){
-	int idx = ph->numOfData+1;
-	
-	while(idx != 1){
-		if(ph->comp(data, ph->heapArr[GetParentIDX(idx)]) > 0){
-			ph->heapArr[idx] = ph->heapArr[GetParentIDX(idx)];
-			idx= GetParentIDX(idx);
-		}
-		else
-			break;
-	}
-	ph->heapArr[idx] = data;
-	ph->numOfData +=1;
-}
-
-HData HDelete(Heap *ph){
-	HData retData = ph->heapArr[1];
-	HData lastElm = ph->heapArr[ph->numOfData];
-	
-	int parentIdx = 1;
-	int childIdx;
-	
-	while(childIdx = GetHiPriChildIDX(ph,parentIdx)){
-		if(ph->comp(lastElm, ph->heapArr[childIdx])>=0)
-			break;
-		
-		ph->heapArr[parentIdx] = ph->heapArr[childIdx];
-		parentIdx = childIdx;
-	}
-	
-	ph->heapArr[parentIdx] = lastElm;
-	ph->numOfData -=1;
-	return retData;
-}
+#endif
